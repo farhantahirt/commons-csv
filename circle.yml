@@ -1,3 +1,7 @@
 test:
-  override:
-    - sbt test
+  minitest_globs:
+    - test/integration/**/*.rb
+    - test/extra-dir/**/*.rb
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find . -type f -regex ".*/target/failsafe-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
